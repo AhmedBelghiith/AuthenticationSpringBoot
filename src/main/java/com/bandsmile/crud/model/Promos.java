@@ -13,7 +13,7 @@ public class Promos {
     private Long id;
 
     @NotEmpty
-    @Column(name = "pourcentage")
+    @Column(name = "pourcentage",nullable = false)
     private Double pourcentage;
 
     @NotEmpty
@@ -34,4 +34,38 @@ public class Promos {
     public Promos() {
 
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getPourcentage() {
+        return pourcentage;
+    }
+
+    public void setPourcentage(Double pourcentage) {
+        this.pourcentage = pourcentage;
+    }
+
+    public Date getDateDeb() {
+        return dateDeb;
+    }
+
+    public void setDateDeb(Date dateDeb) {
+        this.dateDeb = dateDeb;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
 }
+

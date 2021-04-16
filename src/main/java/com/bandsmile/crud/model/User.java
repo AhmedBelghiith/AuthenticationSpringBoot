@@ -8,6 +8,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -61,7 +63,31 @@ public class User implements Serializable {
     @Column(name = "CodePost")
     private Integer codepost;
 
-    public User() {
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    public User(User user) {
+    }
+
+    public User(Long id, @Size(min = 3, message = "Verifez votre Prenom") String firstname, @Size(min = 3, message = "Verifez votre nom") String lastname, @Email(message = "Verifiez Votre email") String email, @NotEmpty(message = "Entrez votre adresse") String adresse, String adresse2, @NotEmpty(message = "Nom d'utilisateur déjà existant ou champs vide, Merci de ressayer") String userName, @NotEmpty(message = "Entrez un mot de passe") @Size(min = 8, message = "Minimum 8 caracteres") String password, @NotEmpty(message = "Entrez votre numero") @Size(min = 8, max = 13) String tel, @NotEmpty(message = "Selectionnez un pays") String country, @Size(min = 4) String city, @Size(min = 4) Integer codepost, Set<Role> roles) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.adresse = adresse;
+        this.adresse2 = adresse2;
+        this.userName = userName;
+        this.password = password;
+        this.tel = tel;
+        this.country = country;
+        this.city = city;
+        this.codepost = codepost;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -158,5 +184,13 @@ public class User implements Serializable {
 
     public void setCodepost(Integer codepost) {
         this.codepost = codepost;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -52,7 +52,9 @@ public class Produit {
     @Column(name = "Oldprice", nullable = false)
     private Double oldprice;
 
-
+    @ManyToOne
+    @JoinColumn(name = "id_categorie")
+    private Categorie categorie;
 
     public Produit() {
     }
